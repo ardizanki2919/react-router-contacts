@@ -1,15 +1,32 @@
-import { Form, Link, NavLink, Outlet, useNavigation } from "react-router";
+import { Form, Link, NavLink, Outlet, useNavigation, useSubmit } from "react-router";
 import { getContacts } from "../data";
 import type { Route } from "./+types/sidebar";
+import { useEffect, useState } from "react";
 
-export async function loader() {
-    const contacts = await getContacts();
-    return { contacts };
+export async function loader({
+    request,
+}: Route.LoaderArgs) {
+    const url = new URL(request.url);
+    const q = url.searchParams.get("q");
+    const contacts = await getContacts(q);
+    return { contacts, q };
 }
   
 export default function SidebarLayout({ loaderData }: Route.ComponentProps) {
-    const { contacts } = loaderData;
+    const { contacts, q } = loaderData;
     const navigation = useNavigation();
+    const submit = useSubmit();
+    const searching =
+        navigation.location &&
+        new URLSearchParams(navigation.location.search).has(
+            "q",
+        );
+
+    const [query, setQuery] = useState(q || "");
+
+    useEffect(() => {
+        setQuery(q || "");
+    }, [q]);
     
     return (
       <>
@@ -18,15 +35,31 @@ export default function SidebarLayout({ loaderData }: Route.ComponentProps) {
             <Link to="about">React Router Contacts</Link>
           </h1>
           <div>
-            <Form id="search-form" role="search">
+            <Form 
+                id="search-form" 
+                onChange={(event) =>
+                    submit(event.currentTarget)
+                }
+                role="search"
+            >
               <input
                 aria-label="Search contacts"
+                className={searching ? "loading" : ""}
+                defaultValue={q || ""}
                 id="q"
                 name="q"
+                onChange={(event) =>
+                    setQuery(event.currentTarget.value)
+                }
                 placeholder="Search"
                 type="search"
+                value={query}
               />
-              <div aria-hidden hidden={true} id="search-spinner" />
+              <div 
+                aria-hidden 
+                hidden={!searching} 
+                id="search-spinner"
+                />
             </Form>
             <Form method="post">
               <button type="submit">New</button>
@@ -70,7 +103,9 @@ export default function SidebarLayout({ loaderData }: Route.ComponentProps) {
         </div>
         <div
             className={
-                navigation.state === "loading" ? "loading" : ""
+                navigation.state === "loading"  && !searching
+                    ? "loading" 
+                    : ""
             }
             id="detail"
         >
