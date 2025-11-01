@@ -6,6 +6,9 @@ import type { Route } from "./+types/contact";
 
 export async function loader({ params }: Route.LoaderArgs) {
     const contact = await getContact(params.contactId);
+    if (!contact) {
+        throw new Response("Not Found", { status: 404 });
+    }
     return { contact };
 }
 
@@ -58,7 +61,7 @@ export default function Contact({
                         method="post"
                         onSubmit={(event) => {
                             const response = confirm("Please confirm you want to delete this record.");
-                            if (response) {
+                            if (!response) {
                                 event.preventDefault();
                             }
                         }}
