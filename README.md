@@ -1,38 +1,29 @@
-# Welcome to React Router!
+# 👋 Hello, World!
 
-- [React Router Docs](https://reactrouter.com/)
+I'm **Ardi Zanki**, a Software Engineer specializing in the React ecosystem. 
+Based in Yogyakarta, Indonesia — open to remote opportunities worldwide.
 
-## Development
+## 🚀 What I Do
 
-From your terminal:
+I build scalable and maintainable web applications with modern technologies:
 
-```sh
-pnpm run dev
-```
+- **Languages:** JavaScript, TypeScript
+- **UI Library:** React
+- **React Framework:** React Router v7
+- **State Management:** Zustand
+- **Styling:** Tailwind CSS, CSS, HTML
+ 
 
-This starts your app in development mode, rebuilding assets on file changes.
+## 🌐 Let's Connect
 
-## Deployment
+Follow me on [X](https://x.com/ardizanki7), where I share insights on technology, career growth, and life as a software engineer. 
+I enjoy connecting with fellow developers and exploring the latest trends in web development.
 
-First, build your app for production:
+You can also find me here:
+- [GitHub](https://github.com/ardizanki2919) – Explore my projects
+- [LinkedIn](https://www.linkedin.com/in/ardizanki/) – Professional networking
 
-```sh
-pnpm run build
-```
+## 📫 Get in Touch
 
-Then run the app in production mode:
-
-```sh
-pnpm start
-```
-
-Now you'll need to pick a host to deploy it to.
-
-### DIY
-
-If you're familiar with deploying node applications, the built-in React Router app server is production-ready.
-
-Make sure to deploy the output of `react-router build`
-
-- `build/server`
-- `build/client`
+Interested in collaborating, curious about my work, or just want to chat about tech? 
+Feel free to reach out!
